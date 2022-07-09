@@ -10,7 +10,7 @@ typedef union _ULARGE_INTEGER64 {
     uint32_t high;
   };
   uint64_t qword_part;
-}ULARGE_INTEGER64, *LPULARGE_INTEGER64;
+}ULARGE_INTEGER64;
 
 static uint64_t esp64state = 0;
  
