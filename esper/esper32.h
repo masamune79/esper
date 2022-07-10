@@ -22,10 +22,8 @@ void init_esper32(uint32_t dwseed) {
 
 uint32_t esper32(void) {
   ULARGE_INTEGER32 lpdata = {0};
-  lpdata.dword_part = esp32state;
-  
-  lpdata.low ^= (lpdata.low | (lpdata.high >> 8));
+  lpdata.dword_part = (esp32state += 0x7ffff);
+  lpdata.low ^= (lpdata.low & lpdata.high);
   lpdata.high ^= (lpdata.low | (lpdata.dword_part >> 8));
-  
-  return (uint32_t)(esp32state += ((esp32state += 0x7ffff) ^ (lpdata.low & lpdata.high)));
+  return (uint32_t)(esp32state += lpdata.dword_part);
 }
