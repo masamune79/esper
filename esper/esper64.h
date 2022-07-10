@@ -22,10 +22,8 @@ void init_esper64(uint64_t qwseed) {
 
 uint64_t esper64(void) {
   ULARGE_INTEGER64 lpdata = {0};
-  lpdata.qword_part = esp64state;
-  
-  lpdata.low ^= (lpdata.low | (lpdata.high >> 16));
+  lpdata.qword_part = (esp64state += 0x7fffffffff);
+  lpdata.low ^= (lpdata.low & lpdata.high);
   lpdata.high ^= (lpdata.low | (lpdata.qword_part >> 16));
-  
-  return (uint64_t)(esp64state += ((esp64state += 0x7ffffffff) ^ (lpdata.low & lpdata.high)));
+  return (uint64_t)(esp64state += lpdata.qword_part);
 }
