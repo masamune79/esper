@@ -25,5 +25,5 @@ uint64_t esper64(void) {
   lpdata.qword_part = (esp64state += 0x7fffffffff);
   lpdata.low ^= (lpdata.low & lpdata.high);
   lpdata.high ^= (lpdata.low | (uint32_t)(lpdata.qword_part >> 16));
-  return (uint64_t)(esp64state += lpdata.qword_part);
+  return (esp64state += lpdata.qword_part);
 }
