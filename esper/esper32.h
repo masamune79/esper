@@ -24,8 +24,8 @@ uint32_t esper32(void) {
   ULARGE_INTEGER32 lpdata = {0};
   lpdata.dword_part = esp32state;
   
-  lpdata.low ^= (lpdata.low | (((lpdata.high) >> 8) & 0xff));
-  lpdata.high ^= (lpdata.low | (lpdata.low >> 8));
+  lpdata.low ^= (lpdata.low | (lpdata.high >> 8));
+  lpdata.high ^= (lpdata.low | (lpdata.dword_part >> 8));
   
   return (uint32_t)(esp32state += ((esp32state += 0x7ffff) ^ (lpdata.dword_part << lpdata.high)));
 }
